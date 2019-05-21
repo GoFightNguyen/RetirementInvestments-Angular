@@ -1,30 +1,43 @@
 <div class="container">
-  <h1>Investment Form</h1>
-  <!--This is using a template form-->
-  <form #investmentForm="ngForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input id="name" class="form-control" type="text" [(ngModel)]="model.name" name="name" required #name="ngModel">
-      <!--You need a template reference variable to access the input box's Angular control from within the template-->
-      <!--In the hidden, the name is referencing the template reference variable-->
-      <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Name is required</div>
-    </div>
+  <div [hidden]="!inEditMode">
+    <h1>Investment Form</h1>
+    <!--This is using a template form-->
+    <form #investmentForm="ngForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" class="form-control" type="text" [(ngModel)]="model.name" name="name" required #name="ngModel">
+        <!--You need a template reference variable to access the input box's Angular control from within the template-->
+        <!--In the hidden, the name is referencing the template reference variable-->
+        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">Name is required</div>
+      </div>
 
-    <div class="form-group">
-      <label for="percentage">Percentage</label>
-      <input id="percentage" class="form-control" type="number" [(ngModel)]="model.percentage"
-        name="percentage" #spy>
-      <!-- <br>TODO: remove this: {{spy.className}} -->
-    </div>
+      <div class="form-group">
+        <label for="percentage">Percentage</label>
+        <input id="percentage" class="form-control" type="number" [(ngModel)]="model.percentage" name="percentage" #spy>
+        <!-- <br>{{spy.className}} -->
+      </div>
 
-    <div class="form-group">
-      <label for="amount">Amount</label>
-      <input id="amount" class="form-control" type="number" [(ngModel)]="model.amount" name="amount">
-    </div>
+      <div class="form-group">
+        <label for="amount">Amount</label>
+        <input id="amount" class="form-control" type="number" [(ngModel)]="model.amount" name="amount">
+      </div>
 
-    <button type="submit" class="btn btn-success" [disabled]="!investmentForm.form.valid">Submit</button>
-  </form>
+      <button type="submit" class="btn btn-success" [disabled]="!investmentForm.form.valid">Submit</button>
+    </form>
+  </div>
+
+  <div [hidden]="inEditMode">
+    <h4>{{model.name}}</h4>
+    <div class="row">
+      <div class="col-xs-12">{{model.percentage | percent}}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">{{model.amount | currency}}</div>
+    </div>
+    <br>
+    <button class="btn btn-primary" (click)="inEditMode=true">Edit</button>
+  </div>
 </div>
 
+<!--TODO: percent pipe means we are storing the the value as .06 instead of 6. When editing, we need to show as 6-->
 <!--TODO: min/max validator are functions only, so can only work with Reactive Forms-->
-<!--TODO: in edge chromium, input number throws an exception during submit. Does this happen in other browsers?-->

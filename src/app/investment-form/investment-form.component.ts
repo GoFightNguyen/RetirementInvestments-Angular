@@ -7,19 +7,17 @@ import { Investment } from '../investment';
   styleUrls: ['./investment-form.component.css']
 })
 export class InvestmentFormComponent implements OnInit {
-
+  inEditMode = false;
   model: Investment = {
     name: '401(k)',
-    percentage: 6,
+    percentage: .06,
     amount: 8700
   };
-
-  constructor() { }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    console.log('submitted');
+    this.inEditMode = false;
   }
 }
