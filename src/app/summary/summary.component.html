@@ -1,8 +1,12 @@
 <div class="card">
   <div class="card-body">
     <button class="btn btn-primary btn-sm" (click)="addNewInvestment()">New investment</button>
-    <div *ngFor="let investment of investments">
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-sm-4" *ngFor="let investment of investments">
         <app-investment-form [model]="investment"></app-investment-form>
+      </div>
     </div>
   </div>
 </div>

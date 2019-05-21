@@ -26,16 +26,17 @@
     </form>
   </div>
 
-  <div [hidden]="inEditMode">
-    <h4>{{model.name}}</h4>
-    <div class="row">
-      <div class="col-xs-12">{{model.percentage | percent}}</div>
+  <div class="card" [hidden]="inEditMode" (click)="inEditMode=true">
+    <div class="card-header">
+      <h5>{{model.name}}</h5>
     </div>
-    <div class="row">
-      <div class="col-xs-12">{{model.amount | currency}}</div>
+    <div class="card-body">
+      <!-- <h5 class="card-title">{{model.name}}</h5> -->
+      <div class="row">
+          <div class="card-text col-4 text-left">{{model.percentage | percent}}</div>
+          <div class="card-text col-8 text-right">{{model.amount | currency}}</div>
+      </div>
     </div>
-    <br>
-    <button class="btn btn-primary" (click)="inEditMode=true">Edit</button>
   </div>
 </div>
 
