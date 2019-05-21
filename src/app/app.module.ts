@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
 import { InvestmentFormComponent } from './investment-form/investment-form.component';
+import { SummaryComponent } from './summary/summary.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InvestmentFormComponent
+    InvestmentFormComponent,
+    SummaryComponent
   ],
   imports: [
     BrowserModule,

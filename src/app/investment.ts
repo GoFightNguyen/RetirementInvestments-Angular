@@ -3,3 +3,9 @@ export interface Investment {
     percentage: number;
     amount?: number;
 }
+
+export class NewInvestment implements Investment {
+    name = 'New investment';
+    percentage = 0;
+    amount?: number;
+}

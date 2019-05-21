@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Investment } from '../investment';
+import { Component, OnInit, Input } from '@angular/core';
+import { Investment, NewInvestment } from '../investment';
 
 @Component({
   selector: 'app-investment-form',
@@ -8,13 +8,12 @@ import { Investment } from '../investment';
 })
 export class InvestmentFormComponent implements OnInit {
   inEditMode = false;
-  model: Investment = {
-    name: '401(k)',
-    percentage: .06,
-    amount: 8700
-  };
+  @Input() model: Investment;
 
   ngOnInit() {
+    if (this.model instanceof NewInvestment) {
+      this.inEditMode = true;
+    }
   }
 
   onSubmit() {
