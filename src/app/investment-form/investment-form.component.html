@@ -28,9 +28,12 @@
   </div>
 </div>
 
-<div class="card" [hidden]="inEditMode" (click)="inEditMode=true">
+<div class="card" [hidden]="inEditMode">
   <div class="card-header">
-    <h5>{{model.name}}</h5>
+    <div class="row">
+      <h5 class="col-11 text-left">{{model.name}}</h5>
+      <i class="material-icons" style="cursor: pointer" (click)="inEditMode=true">edit</i>
+    </div>
   </div>
   <div class="card-body">
     <div class="row">
