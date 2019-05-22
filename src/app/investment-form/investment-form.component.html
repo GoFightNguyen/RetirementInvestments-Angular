@@ -1,7 +1,8 @@
-<div class="container">
-  <div [hidden]="!inEditMode">
-    <h1>Investment Form</h1>
-    <!--This is using a template form-->
+<div class="card" [hidden]="!inEditMode">
+  <div class="card-header">
+    <h5>{{model.name}}</h5>
+  </div>
+  <div class="card-body">
     <form #investmentForm="ngForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="name">Name</label>
@@ -25,17 +26,16 @@
       <button type="submit" class="btn btn-success" [disabled]="!investmentForm.form.valid">Submit</button>
     </form>
   </div>
+</div>
 
-  <div class="card" [hidden]="inEditMode" (click)="inEditMode=true">
-    <div class="card-header">
-      <h5>{{model.name}}</h5>
-    </div>
-    <div class="card-body">
-      <!-- <h5 class="card-title">{{model.name}}</h5> -->
-      <div class="row">
-          <div class="card-text col-4 text-left">{{model.percentage | percent}}</div>
-          <div class="card-text col-8 text-right">{{model.amount | currency}}</div>
-      </div>
+<div class="card" [hidden]="inEditMode" (click)="inEditMode=true">
+  <div class="card-header">
+    <h5>{{model.name}}</h5>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="card-text col-4 text-left">{{model.percentage | percent}}</div>
+      <div class="card-text col-8 text-right">{{model.amount | currency}}</div>
     </div>
   </div>
 </div>
