@@ -7,19 +7,6 @@ import { Investment, NewInvestment, Summary } from '../investment';
   styleUrls: ['./summary.component.css']
 })
 export class SummaryComponent implements OnInit {
-  investments: Investment[] = [
-    {
-      name: '401(k)',
-      percentage: .06,
-      amount: 8700
-    },
-    {
-      name: '401(k) Roth',
-      percentage: .04,
-      amount: 87
-    }
-  ];
-
   summary = new Summary();
 
   constructor() { }
@@ -28,6 +15,6 @@ export class SummaryComponent implements OnInit {
   }
 
   addNewInvestment() {
-    this.investments.push(new NewInvestment());
+    this.summary.investments.push(new NewInvestment());
   }
 }

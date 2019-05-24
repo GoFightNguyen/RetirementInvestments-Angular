@@ -10,7 +10,7 @@
     <br>
     <br>
     <div class="row">
-      <div class="col-sm-3" *ngFor="let investment of investments">
+      <div class="col-sm-3" *ngFor="let investment of summary.investments">
         <app-investment-form [model]="investment"></app-investment-form>
       </div>
     </div>
@@ -20,6 +20,11 @@
       <h5>{{summary.desiredPercentage | percent}}</h5>
       &nbsp;of your annual salary is&nbsp;
       <h5>{{summary.desiredAmount | currency}}</h5>
+    </span>
+    <span class="row">
+      <h5>{{summary.totalPercentageInvested | percent:'.2'}}</h5>
+      &nbsp;of your annual salary is invested, which is&nbsp;
+      <h5>{{summary.totalAmountInvested | currency}}</h5>
     </span>
   </div>
 </div>
