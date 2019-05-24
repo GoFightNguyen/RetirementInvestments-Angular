@@ -20,6 +20,8 @@ export class SummaryComponent implements OnInit {
     }
   ];
 
+  annualSalary: number;
+
   constructor() { }
 
   ngOnInit() {
