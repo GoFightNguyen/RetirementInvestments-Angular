@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Investment, NewInvestment } from '../investment';
+import { Investment, NewInvestment, Summary } from '../investment';
 
 @Component({
   selector: 'app-summary',
@@ -20,7 +20,7 @@ export class SummaryComponent implements OnInit {
     }
   ];
 
-  annualSalary: number;
+  summary = new Summary();
 
   constructor() { }
 
