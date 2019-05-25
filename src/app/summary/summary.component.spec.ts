@@ -32,7 +32,7 @@ describe('SummaryComponent', () => {
       percentage: 0
     };
     component.addNewInvestment();
-    const actual: Investment = component.investments[component.investments.length - 1];
+    const actual: Investment = component.summary.investments[component.summary.investments.length - 1];
     expect(actual instanceof NewInvestment).toBeTruthy('wrong type');
     expect(JSON.stringify(actual)).toEqual(JSON.stringify(expected));
   });
