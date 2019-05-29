@@ -40,6 +40,14 @@ describe('Summary', () => {
             expectDesiredAmountToBeCloseTo(8174.01, 'changed');
         });
 
+        it('changing the desired percentage', () => {
+            summary.desiredPercentage = .077;
+            summary.annualSalary = 55800;
+            expectDesiredAmountToBeCloseTo(4296.60, 'original'); // Ensure desiredAmount was calculated
+            summary.desiredPercentage = .15;
+            expectDesiredAmountToBeCloseTo(8370.00, 'changed');
+        });
+
         function expectDesiredAmountToBeCloseTo(expected: number, failOutput?: string) {
             expect(summary.desiredAmount).toBeCloseTo(expected, 2, failOutput);
         }
