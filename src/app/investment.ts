@@ -32,7 +32,6 @@ export class Summary {
         return this._annualSalary;
     }
 
-    // TODO: unit tests
     set annualSalary(annualSalary: number) {
         this._annualSalary = annualSalary;
         this._desiredAmount = annualSalary * this.desiredPercentage;
