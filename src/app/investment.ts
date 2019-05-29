@@ -31,7 +31,7 @@ export class Summary {
     }
 
     get totalAmountInvested(): number {
-        return this.investments.reduce((sum, i) => sum + i.amount, 0);
+        return this.investments.filter(i => i.amount).reduce((sum, i) => sum + i.amount, 0);
     }
 
     get totalPercentageInvested(): number {

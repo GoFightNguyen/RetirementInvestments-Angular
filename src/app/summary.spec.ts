@@ -120,6 +120,30 @@ describe('Summary', () => {
             expectTotalPercentageInvestedToBeCloseTo(.0923, 'changed');
         });
 
+        it('ignores investments where amount is null', () => {
+            summary.desiredPercentage = .15;
+            summary.annualSalary = 55800;
+            summary.investments = [
+                {
+                    name: 'School Retirement',
+                    percentage: .077,
+                    amount: 4297
+                },
+                {
+                    name: 'Roth IRA',
+                    percentage: .099,
+                    amount: 5500
+                },
+                {
+                    name: 'amount is null',
+                    percentage: .10,
+                    amount: null
+                },
+            ];
+            expectTotalAmountInvestedToBeCloseTo(9797, 'original');
+            expectTotalPercentageInvestedToBeCloseTo(.1756, 'original');
+        });
+
         function expectTotalAmountInvestedToBeCloseTo(expected: number, failOutput?: string) {
             expect(summary.totalAmountInvested).toBeCloseTo(expected, 2, 'totalAmountInvested' + failOutput);
         }
