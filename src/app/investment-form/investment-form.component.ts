@@ -9,6 +9,7 @@ import { Investment, NewInvestment } from '../investment';
 export class InvestmentFormComponent implements OnInit {
   inEditMode = false;
   @Input() model: Investment;
+  @Input() annualSalary: number;
 
   ngOnInit() {
     if (this.model instanceof NewInvestment) {
@@ -18,5 +19,6 @@ export class InvestmentFormComponent implements OnInit {
 
   onSubmit() {
     this.inEditMode = false;
+    this.model.recalculate(this.annualSalary);
   }
 }

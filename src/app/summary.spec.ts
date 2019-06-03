@@ -1,4 +1,4 @@
-import { Summary } from './investment';
+import { Summary, Investment } from './investment';
 
 describe('Summary', () => {
     let summary: Summary;
@@ -57,21 +57,9 @@ describe('Summary', () => {
             summary.desiredPercentage = .15;
             summary.annualSalary = 106156;
             summary.investments = [
-                {
-                    name: '401(k)',
-                    percentage: .06,
-                    amount: 6369.36
-                },
-                {
-                    name: 'Roth 401(k)',
-                    percentage: .04,
-                    amount: 4246.24
-                },
-                {
-                    name: 'Roth IRA',
-                    percentage: .0518,
-                    amount: 5500
-                }
+                new Investment('401(k)', .06, 6369.36),
+                new Investment('Roth 401(k)', .04, 4246.24),
+                new Investment('Roth IRA', .0518, 5500)
             ];
             expectTotalAmountInvestedToBeCloseTo(16115.60);
             expectTotalPercentageInvestedToBeCloseTo(.1518);
@@ -81,16 +69,8 @@ describe('Summary', () => {
             summary.desiredPercentage = .15;
             summary.annualSalary = 55800;
             summary.investments = [
-                {
-                    name: 'School Retirement',
-                    percentage: .077,
-                    amount: 4297
-                },
-                {
-                    name: 'Roth IRA',
-                    percentage: .099,
-                    amount: 5500
-                }
+                new Investment('School Retirement', .077, 4297),
+                new Investment('Roth IRA', .099, 5500)
             ];
             expectTotalAmountInvestedToBeCloseTo(9797);
             expectTotalPercentageInvestedToBeCloseTo(.1756);
@@ -100,17 +80,10 @@ describe('Summary', () => {
             summary.desiredPercentage = .15;
             summary.annualSalary = 55800;
             summary.investments = [
-                {
-                    name: 'School Retirement',
-                    percentage: .077,
-                    amount: 4297
-                },
-                {
-                    name: 'Roth IRA',
-                    percentage: .099,
-                    amount: 5500
-                }
+                new Investment('School Retirement', .077, 4297),
+                new Investment('Roth IRA', .099, 5500)
             ];
+
             // Ensure totals were calculated before the change
             expectTotalAmountInvestedToBeCloseTo(9797, 'original');
             expectTotalPercentageInvestedToBeCloseTo(.1756, 'original');
@@ -124,21 +97,9 @@ describe('Summary', () => {
             summary.desiredPercentage = .15;
             summary.annualSalary = 55800;
             summary.investments = [
-                {
-                    name: 'School Retirement',
-                    percentage: .077,
-                    amount: 4297
-                },
-                {
-                    name: 'Roth IRA',
-                    percentage: .099,
-                    amount: 5500
-                },
-                {
-                    name: 'amount is null',
-                    percentage: .10,
-                    amount: null
-                },
+                new Investment('School Retirement', .077, 4297),
+                new Investment('Roth IRA', .099, 5500),
+                new Investment('amount is null', .10)
             ];
             expectTotalAmountInvestedToBeCloseTo(9797, 'original');
             expectTotalPercentageInvestedToBeCloseTo(.1756, 'original');

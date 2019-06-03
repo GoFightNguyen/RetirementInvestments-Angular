@@ -1,29 +1,39 @@
-export interface Investment {
-    name: string;
-    percentage: number;
-    amount?: number;
+export enum InvestmentType {
+    Percentage,
+    FixedAmount
 }
 
-export class NewInvestment implements Investment {
-    name = 'New investment';
-    percentage = 0;
+export class Investment {
+    name: string;
+    percentage?: number;
     amount?: number;
+    investmentType: InvestmentType = InvestmentType.Percentage; // TODO: should this come in through ctor? What should NewInvestment default to?
+
+    constructor(name: string, percentage?: number, amount?: number) {
+        this.name = name;
+        this.percentage = percentage;
+        this.amount = amount;
+    }
+
+    recalculate(annualSalary: number): void {
+        if (this.investmentType === InvestmentType.Percentage) {
+            this.amount = annualSalary * this.percentage;
+        } else {
+            this.percentage = this.amount / annualSalary;
+        }
+    }
+}
+
+export class NewInvestment extends Investment {
+    constructor() { super('New Investment', null, null); }
 }
 
 export class Summary {
     annualSalary = 0;
     desiredPercentage = .15;
     investments: Investment[] = [
-        {
-            name: '401(k)',
-            percentage: .06,
-            amount: 8700
-        },
-        {
-            name: '401(k) Roth',
-            percentage: .04,
-            amount: 87
-        }
+        new Investment('401(k)', .06, 8700),
+        new Investment('Roth 401(k)', .04, 87)
     ];
 
     get desiredAmount(): number {

@@ -27,10 +27,7 @@ describe('SummaryComponent', () => {
   });
 
   it('addNewInvestment adds a NewInvestment to the collection', () => {
-    const expected: NewInvestment = {
-      name: 'New investment',
-      percentage: 0
-    };
+    const expected = new Investment('New Investment', null, null);
     component.addNewInvestment();
     const actual: Investment = component.summary.investments[component.summary.investments.length - 1];
     expect(actual instanceof NewInvestment).toBeTruthy('wrong type');

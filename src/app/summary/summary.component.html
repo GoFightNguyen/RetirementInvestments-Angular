@@ -11,7 +11,7 @@
     <br>
     <div class="row">
       <div class="col-sm-3" *ngFor="let investment of summary.investments">
-        <app-investment-form [model]="investment"></app-investment-form>
+        <app-investment-form [model]="investment" [annualSalary]="summary.annualSalary"></app-investment-form>
       </div>
     </div>
   </div>

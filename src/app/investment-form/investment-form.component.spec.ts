@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InvestmentFormComponent } from './investment-form.component';
 import { FormsModule } from '@angular/forms';
-import { NewInvestment } from '../investment';
+import { NewInvestment, Investment, InvestmentType } from '../investment';
 
 describe('InvestmentFormComponent', () => {
   let component: InvestmentFormComponent;
@@ -22,10 +22,7 @@ describe('InvestmentFormComponent', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(InvestmentFormComponent);
       component = fixture.componentInstance;
-      component.model = {
-        name: 'test',
-        percentage: 0.06
-      };
+      component.model = new Investment('test', 0.06);
       fixture.detectChanges();
     });
 
@@ -59,6 +56,36 @@ describe('InvestmentFormComponent', () => {
     it('submit disables edit mode', () => {
       component.onSubmit();
       expect(component.inEditMode).toBeFalsy();
+    });
+  });
+
+  describe('submit', () => {
+    it('should recalculate the amount for a percentage investment when changing the percentage', () => {
+      const investment = new Investment('401(k)', .15, 15923.40);
+      investment.investmentType = InvestmentType.Percentage;
+      fixture = TestBed.createComponent(InvestmentFormComponent);
+      component = fixture.componentInstance;
+      component.model = investment;
+      component.annualSalary = 106156;
+      fixture.detectChanges();
+
+      component.model.percentage = .077;
+      component.onSubmit();
+      expect(component.model.amount).toBeCloseTo(8174.01);
+    });
+
+    it('should recalculate the percentage for a fixed amount investment when changing the amount', () => {
+      const investment = new Investment('401(k)', .15, 15923.40);
+      investment.investmentType = InvestmentType.FixedAmount;
+      fixture = TestBed.createComponent(InvestmentFormComponent);
+      component = fixture.componentInstance;
+      component.model = investment;
+      component.annualSalary = 106156;
+      fixture.detectChanges();
+
+      component.model.amount = 8174.01;
+      component.onSubmit();
+      expect(component.model.percentage).toBeCloseTo(.077, 4);
     });
   });
 
