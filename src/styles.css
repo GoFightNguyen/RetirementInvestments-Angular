@@ -2,3 +2,8 @@
 /* TODO: get most recent version of bootstrap? */
 @import url('https://unpkg.com/bootstrap@4.3.1/dist/css/bootstrap.min.css');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
