@@ -7,7 +7,7 @@
 
       <div class="form-group">
         <label>Investment Type</label>
-        <select name="investmentType" [(ngModel)]="model.investmentType">
+        <select name="investmentType" class="form-control" [(ngModel)]="model.investmentType">
           <option *ngFor="let type of investmentTypes" [ngValue]="type">{{type}}</option>
         </select>
       </div>
@@ -31,17 +31,14 @@
 
         <div class="form-group">
           <label for="amount">Amount</label>
-          <input id="amount" class="form-control" type="number" [(ngModel)]="model.amount" name="amount" disabled>
+          <input id="amount" class="form-control" name="amount" disabled value="{{model.amount | currency}}">
         </div>
       </div>
 
       <div class="form-group" *ngIf="!model.isContributionPercentageBased">
         <div class="form-group">
           <label for="percentage">Percentage</label>
-          <input id="percentage" class="form-control" type="number" [(ngModel)]="model.percentage" name="percentage"
-            #spy disabled>
-          <!-- <br>{{spy.className}} -->
-          <!--Enable to see things such as untouched/pristine-->
+          <input id="percentage" class="form-control" name="percentage" disabled value="{{model.percentage | percent:'.2'}}">
         </div>
 
         <div class="form-group">
@@ -63,7 +60,7 @@
   </div>
   <div class="card-body">
     <div class="row">
-      <div class="card-text col-4 text-left">{{model.percentage | percent}}</div>
+      <div class="card-text col-4 text-left">{{model.percentage | percent:'.2'}}</div>
       <div class="card-text col-8 text-right">{{model.amount | currency}}</div>
     </div>
   </div>
