@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InvestmentFormComponent } from './investment-form.component';
 import { FormsModule } from '@angular/forms';
-import { NewInvestment, Investment, InvestmentType } from '../investment';
+import { NewInvestment, Investment, InvestmentTypes } from '../investment';
 
 describe('InvestmentFormComponent', () => {
   let component: InvestmentFormComponent;
@@ -62,7 +62,7 @@ describe('InvestmentFormComponent', () => {
   describe('submit', () => {
     it('should recalculate the amount for a percentage investment when changing the percentage', () => {
       const investment = new Investment('401(k)', .15, 15923.40);
-      investment.investmentType = InvestmentType.Percentage;
+      investment.investmentType = InvestmentTypes.Percentage;
       fixture = TestBed.createComponent(InvestmentFormComponent);
       component = fixture.componentInstance;
       component.model = investment;
@@ -76,7 +76,7 @@ describe('InvestmentFormComponent', () => {
 
     it('should recalculate the percentage for a fixed amount investment when changing the amount', () => {
       const investment = new Investment('401(k)', .15, 15923.40);
-      investment.investmentType = InvestmentType.FixedAmount;
+      investment.investmentType = InvestmentTypes.FixedAmount;
       fixture = TestBed.createComponent(InvestmentFormComponent);
       component = fixture.componentInstance;
       component.model = investment;
