@@ -1,4 +1,4 @@
-import { Summary, Investment } from './investment';
+import { Summary, Investment, InvestmentTypes } from './investment';
 
 describe('Summary', () => {
     let summary: Summary;
@@ -32,14 +32,6 @@ describe('Summary', () => {
             expectDesiredAmountToBeCloseTo(4296.60);
         });
 
-        it('changing the Annual Salary', () => {
-            summary.desiredPercentage = .077;
-            summary.annualSalary = 55800;
-            expectDesiredAmountToBeCloseTo(4296.60, 'original'); // Ensure desiredAmount was calculated
-            summary.annualSalary = 106156;
-            expectDesiredAmountToBeCloseTo(8174.01, 'changed');
-        });
-
         it('changing the desired percentage', () => {
             summary.desiredPercentage = .077;
             summary.annualSalary = 55800;
@@ -47,11 +39,8 @@ describe('Summary', () => {
             summary.desiredPercentage = .15;
             expectDesiredAmountToBeCloseTo(8370.00, 'changed');
         });
-
-        function expectDesiredAmountToBeCloseTo(expected: number, failOutput?: string) {
-            expect(summary.desiredAmount).toBeCloseTo(expected, 2, failOutput);
-        }
     });
+
     describe('totals', () => {
         it('Annual Salary is $106,156, desired percentage is 15%', () => {
             summary.desiredPercentage = .15;
@@ -76,23 +65,6 @@ describe('Summary', () => {
             expectTotalPercentageInvestedToBeCloseTo(.1756);
         });
 
-        it('changing the Annual Salary', () => {
-            summary.desiredPercentage = .15;
-            summary.annualSalary = 55800;
-            summary.investments = [
-                new Investment('School Retirement', .077, 4297),
-                new Investment('Roth IRA', .099, 5500)
-            ];
-
-            // Ensure totals were calculated before the change
-            expectTotalAmountInvestedToBeCloseTo(9797, 'original');
-            expectTotalPercentageInvestedToBeCloseTo(.1756, 'original');
-
-            summary.annualSalary = 106156;
-            expectTotalAmountInvestedToBeCloseTo(9797, 'changed');
-            expectTotalPercentageInvestedToBeCloseTo(.0923, 'changed');
-        });
-
         it('ignores investments where amount is null', () => {
             summary.desiredPercentage = .15;
             summary.annualSalary = 55800;
@@ -104,13 +76,71 @@ describe('Summary', () => {
             expectTotalAmountInvestedToBeCloseTo(9797, 'original');
             expectTotalPercentageInvestedToBeCloseTo(.1756, 'original');
         });
-
-        function expectTotalAmountInvestedToBeCloseTo(expected: number, failOutput?: string) {
-            expect(summary.totalAmountInvested).toBeCloseTo(expected, 2, 'totalAmountInvested' + failOutput);
-        }
-
-        function expectTotalPercentageInvestedToBeCloseTo(expected: number, failOutput?: string) {
-            expect(summary.totalPercentageInvested).toBeCloseTo(expected, 4, 'totalPercentageInvested' + failOutput);
-        }
     });
+
+    describe('changing Annual Salary', () => {
+        beforeEach(() => {
+            const investment1 = new Investment('401(k)', .06, 6369.36);
+            const investment2 = new Investment('Roth 401(k)', .04, 4246.24);
+            const investment3 = new Investment('Roth IRA', .0518, 5500);
+            investment3.investmentType = InvestmentTypes.FixedAmount;
+
+            summary.desiredPercentage = .15;
+            summary.annualSalary = 106156;
+            summary.investments = [
+                investment1,
+                investment2,
+                investment3
+            ];
+        });
+
+        it('recalculates the investments', () => {
+            // Act
+            summary.annualSalary = 55800;
+
+            // Assert
+            const expectedInvestment1 = new Investment('401(k)', .06, 3348.00);
+            const expectedInvestment2 = new Investment('Roth 401(k)', .04, 2232.00);
+            const expectedInvestment3 = new Investment('Roth IRA', .0986, 5500);
+            expectedInvestment3.investmentType = InvestmentTypes.FixedAmount;
+            areEqual(summary.investments[0], expectedInvestment1, 'investment1');
+            areEqual(summary.investments[1], expectedInvestment2, 'investment2');
+            areEqual(summary.investments[2], expectedInvestment3, 'investment3');
+
+            function areEqual(actual: Investment, expected: Investment, failOutputPrefix: string): void {
+                expect(actual.name).toBe(expected.name, failOutputPrefix + '-name');
+                expect(actual.investmentType).toBe(expected.investmentType, failOutputPrefix + '-investmentType');
+                expect(actual.percentage).toBeCloseTo(expected.percentage, 4, failOutputPrefix + '-percentage');
+                expect(actual.amount).toBeCloseTo(expected.amount, 2, failOutputPrefix + '-amount');
+            }
+        });
+
+        it('recalculates the totals', () => {
+            // Act
+            summary.annualSalary = 55800;
+
+            // Assert
+            expectTotalAmountInvestedToBeCloseTo(11080, 'changed');
+            expectTotalPercentageInvestedToBeCloseTo(.1986, 'changed');
+        });
+
+        it('recalculates the desired amount', () => {
+            summary.annualSalary = 55800;
+            expectDesiredAmountToBeCloseTo(8370, 'original'); // Ensure desiredAmount was calculated
+            summary.annualSalary = 106156;
+            expectDesiredAmountToBeCloseTo(15923.40, 'changed');
+        });
+    });
+
+    function expectDesiredAmountToBeCloseTo(expected: number, failOutput?: string) {
+        expect(summary.desiredAmount).toBeCloseTo(expected, 2, failOutput);
+    }
+
+    function expectTotalAmountInvestedToBeCloseTo(expected: number, failOutput?: string) {
+        expect(summary.totalAmountInvested).toBeCloseTo(expected, 2, 'totalAmountInvested' + failOutput);
+    }
+
+    function expectTotalPercentageInvestedToBeCloseTo(expected: number, failOutput?: string) {
+        expect(summary.totalPercentageInvested).toBeCloseTo(expected, 4, 'totalPercentageInvested' + failOutput);
+    }
 });

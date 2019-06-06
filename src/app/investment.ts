@@ -60,12 +60,23 @@ export class NewInvestment extends Investment {
 }
 
 export class Summary {
-    annualSalary = 0;
+    private _annualSalary = 0;
     desiredPercentage = .15;
     investments: Investment[] = [
         new Investment('401(k)', .06, 8700),
         new Investment('Roth 401(k)', .04, 87)
     ];
+
+    get annualSalary(): number {
+        return this._annualSalary;
+    }
+
+    set annualSalary(value: number) {
+        this._annualSalary = value;
+        this.investments.forEach(i => {
+            i.recalculate(value);
+        });
+    }
 
     get desiredAmount(): number {
         return this.annualSalary * this.desiredPercentage;
