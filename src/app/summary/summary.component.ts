@@ -1,20 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Investment, NewInvestment, Summary } from '../investment';
+import { Component } from '@angular/core';
+import { NewInvestment, Summary } from '../investment';
 
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
   styleUrls: ['./summary.component.css']
 })
-export class SummaryComponent implements OnInit {
+export class SummaryComponent {
   summary = new Summary();
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-  addNewInvestment() {
+  addInvestment() {
     this.summary.investments.push(new NewInvestment());
   }
 }
