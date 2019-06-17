@@ -1,4 +1,4 @@
-<div class="card" [hidden]="!inEditMode">
+<div id="investmentEdit" class="card" [hidden]="!inEditMode">
   <div class="card-header">
     <h5>{{model.name}}</h5>
   </div>
@@ -46,22 +46,22 @@
           <input id="amount" class="form-control" type="number" [(ngModel)]="model.amount" name="amount">
         </div>
       </div>
-      <button type="submit" class="btn btn-success" [disabled]="!investmentForm.form.valid">Submit</button>
+      <button id="submit" type="submit" class="btn btn-success" [disabled]="!investmentForm.form.valid">Submit</button>
     </form>
   </div>
 </div>
 
-<div class="card" [hidden]="inEditMode">
+<div id="investmentDisplay" class="card" [hidden]="inEditMode">
   <div class="card-header">
     <div class="row">
       <h5 class="col-11 text-left">{{model.name}}</h5>
-      <i class="material-icons" style="cursor: pointer" (click)="inEditMode=true">edit</i>
+      <i id="edit" class="material-icons" style="cursor: pointer" (click)="inEditMode=true">edit</i>
     </div>
   </div>
   <div class="card-body">
     <div class="row">
-      <div class="card-text col-4 text-left">{{model.percentage | percent:'.2'}}</div>
-      <div class="card-text col-8 text-right">{{model.amount | currency}}</div>
+      <div id="percentageDisplay" class="card-text col-4 text-left">{{model.percentage | percent:'.2'}}</div>
+      <div id="amountDisplay" class="card-text col-8 text-right">{{model.amount | currency}}</div>
     </div>
   </div>
 </div>
