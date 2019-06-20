@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { InvestmentFormComponent } from './investment-form.component';
 import { FormsModule } from '@angular/forms';
-import { NewInvestment, Investment, InvestmentTypes, Summary } from '../investment';
+import { NewInvestment, MockSummary } from '../investment';
 import { NO_ERRORS_SCHEMA, Component } from '@angular/core';
 
 class InvestmentFormPage {
@@ -11,7 +10,7 @@ class InvestmentFormPage {
   get investmentEditElement() { return this.query<HTMLElement>('#investmentEdit'); }
   get investmentDisplayElement(): HTMLElement { return this.investmentFormElement.querySelector('#investmentDisplay'); }
 
-  constructor(private fixture: ComponentFixture<TestHostComponent>) {
+  constructor(fixture: ComponentFixture<TestHostComponent>) {
     this.investmentFormElement = fixture.nativeElement.querySelector('app-investment-form');
   }
 
@@ -24,11 +23,12 @@ class InvestmentFormPage {
   template: `<app-investment-form [model]="investment" [annualSalary]="annualSalary"></app-investment-form>`
 })
 class TestHostComponent {
-  investment = new Summary().investments[0];
-  annualSalary = 106156;
+  private summary = new MockSummary();
+  investment = this.summary.investments[0];
+  annualSalary = this.summary.annualSalary;
 }
 
-describe('InvestmentFormComponent2', () => {
+describe('InvestmentFormComponent', () => {
   let component: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
   let page: InvestmentFormPage;

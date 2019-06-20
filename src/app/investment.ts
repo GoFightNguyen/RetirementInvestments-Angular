@@ -90,3 +90,21 @@ export class Summary {
         return this.totalAmountInvested / this.annualSalary;
     }
 }
+
+// export const MockSummary = {
+//     annualSalary: 106156,
+//     desiredPercentage: .15,
+//     investments: [
+//         new Investment('401(k)', .06, 8700),
+//         new Investment('Roth 401(k)', .04, 87)
+//     ]
+// };
+
+export class MockSummary extends Summary {
+    annualSalary = 106156;
+    desiredPercentage = .15;
+    investments: Investment[] = [
+        new Investment('401(k)', .06, 8700),
+        new Investment('Roth 401(k)', .04, 87)
+    ];
+}
