@@ -3,6 +3,7 @@ import { SummaryComponent } from './summary.component';
 import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
 import { NewInvestment, Investment, Summary } from '../investment';
 import { FormsModule } from '@angular/forms';
+import { SummaryPage } from './summary.po';
 
 @Component({
   selector: 'app-investment-form',
@@ -11,23 +12,6 @@ import { FormsModule } from '@angular/forms';
 class InvestmentFormStubComponent {
   @Input() model: Investment;
   @Input() annualSalary: number;
-}
-
-class SummaryPage {
-  // getter properties wait to query the DOM until called
-  get annualSalaryInput() { return this.query<HTMLInputElement>('#annualSalary'); }
-  get investmentFormElements() { return this.queryAll<HTMLElement>('app-investment-form'); }
-  get addInvestmentBtn() { return this.query<HTMLButtonElement>('#addInvestment'); }
-
-  constructor(private fixture: ComponentFixture<SummaryComponent>) { }
-
-  private query<T>(selector: string): T {
-    return this.fixture.nativeElement.querySelector(selector);
-  }
-
-  private queryAll<T>(selector: string): T[] {
-    return this.fixture.nativeElement.querySelectorAll(selector);
-  }
 }
 
 describe('SummaryComponent', () => {
@@ -65,22 +49,13 @@ describe('SummaryComponent', () => {
   });
 
   it('should allow the Annual Salary to be edited', () => {
-    page.annualSalaryInput.value = '55800.26';  // simulate user entering a new value
-    page.annualSalaryInput.dispatchEvent(new Event('input')); // dispatch a DOM event so Angular learns of input value change
+    page.changeAnnualSalaryTo('55800.26');
     expect(component.summary.annualSalary).toBe(55800.26);
   });
 
   it('should add an Investment when the button is clicked', () => {
-    // export function click(el: DebugElement | HTMLElement, eventObj: any = ButtonClickEvents.left): void {
-    //   if (el instanceof HTMLElement) {
-    //     el.click();
-    //   } else {
-    //     el.triggerEventHandler('click', eventObj);
-    //   }
-    // }
     // Act
-    page.addInvestmentBtn.click();
-    fixture.detectChanges();
+    page.clickOnAddInvestment();
 
     // Assert DOM
     expect(page.investmentFormElements.length).toBe(1, 'investment forms');
@@ -93,18 +68,14 @@ describe('SummaryComponent', () => {
   });
 
   it('should be able to add multiple investments', () => {
-    page.addInvestmentBtn.click();
-    fixture.detectChanges();
-    page.addInvestmentBtn.click();
-    fixture.detectChanges();
+    page.clickOnAddInvestment();
+    page.clickOnAddInvestment();
     expect(page.investmentFormElements.length).toBe(2);
   });
 
   it('should provide the Investment and Annual Salary to the investment-form', () => {
-    component.summary.annualSalary = 106156;
-    fixture.detectChanges();
-    page.addInvestmentBtn.click();
-    fixture.detectChanges();
+    page.changeAnnualSalaryTo('106156');
+    page.clickOnAddInvestment();
 
     const investmentFormPs = page.investmentFormElements[0].querySelectorAll('p');
     expect(investmentFormPs[0].textContent).toBe(component.summary.investments[0].name);
