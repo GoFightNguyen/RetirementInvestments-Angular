@@ -34,12 +34,13 @@ export class Investment {
     name: string;
     percentage?: number;
     amount?: number;
-    investmentType: InvestmentTypes = InvestmentTypes.Percentage; // TODO: should this come in through ctor? What should NewInvestment default to?
+    investmentType: InvestmentTypes;
 
-    constructor(name: string, percentage?: number, amount?: number) {
+    constructor(name: string, percentage: number, amount: number, type: InvestmentTypes = InvestmentTypes.Percentage) {
         this.name = name;
         this.percentage = percentage;
         this.amount = amount;
+        this.investmentType = type;
     }
 
     recalculate(annualSalary: number): void {
@@ -95,8 +96,8 @@ export class Summary {
 //     annualSalary: 106156,
 //     desiredPercentage: .15,
 //     investments: [
-//         new Investment('401(k)', .06, 8700),
-//         new Investment('Roth 401(k)', .04, 87)
+//         new Investment('401(k)', .06, 6369.36),
+//         new Investment('Roth 401(k)', .04, 4246.24)
 //     ]
 // };
 
@@ -104,7 +105,7 @@ export class MockSummary extends Summary {
     annualSalary = 106156;
     desiredPercentage = .15;
     investments: Investment[] = [
-        new Investment('401(k)', .06, 8700),
-        new Investment('Roth 401(k)', .04, 87)
+        new Investment('401(k)', .06, 6369.36),
+        new Investment('Roth 401(k)', .04, 4246.24, InvestmentTypes.FixedAmount)
     ];
 }

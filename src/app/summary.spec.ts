@@ -71,7 +71,7 @@ describe('Summary', () => {
             summary.investments = [
                 new Investment('School Retirement', .077, 4297),
                 new Investment('Roth IRA', .099, 5500),
-                new Investment('amount is null', .10)
+                new Investment('amount is null', .1, null)
             ];
             expectTotalAmountInvestedToBeCloseTo(9797, 'original');
             expectTotalPercentageInvestedToBeCloseTo(.1756, 'original');

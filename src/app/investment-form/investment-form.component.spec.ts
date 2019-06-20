@@ -1,37 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { InvestmentFormComponent } from './investment-form.component';
 import { FormsModule } from '@angular/forms';
-import { NewInvestment, MockSummary } from '../investment';
-import { NO_ERRORS_SCHEMA, Component } from '@angular/core';
-
-class InvestmentFormPage {
-  private investmentFormElement: HTMLElement;
-
-  get investmentEditElement() { return this.query<HTMLElement>('#investmentEdit'); }
-  get investmentDisplayElement(): HTMLElement { return this.investmentFormElement.querySelector('#investmentDisplay'); }
-
-  constructor(fixture: ComponentFixture<TestHostComponent>) {
-    this.investmentFormElement = fixture.nativeElement.querySelector('app-investment-form');
-  }
-
-  private query<T extends HTMLElement>(selector: string): T {
-    return this.investmentFormElement.querySelector(selector);
-  }
-}
-
-@Component({
-  template: `<app-investment-form [model]="investment" [annualSalary]="annualSalary"></app-investment-form>`
-})
-class TestHostComponent {
-  private summary = new MockSummary();
-  investment = this.summary.investments[0];
-  annualSalary = this.summary.annualSalary;
-}
+import { NewInvestment } from '../investment';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { InvestmentPage } from './investment.po';
+import { TestHostComponent } from './test-host.component';
 
 describe('InvestmentFormComponent', () => {
   let component: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
-  let page: InvestmentFormPage;
+  let page: InvestmentPage;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -47,7 +25,7 @@ describe('InvestmentFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TestHostComponent);
     component = fixture.componentInstance;
-    page = new InvestmentFormPage(fixture);
+    page = new InvestmentPage(fixture);
   });
 
   it('should create', () => {
@@ -60,6 +38,13 @@ describe('InvestmentFormComponent', () => {
       expect(page.investmentEditElement.hidden).toBeTruthy();
       expect(page.investmentDisplayElement.hidden).toBeFalsy();
     });
+
+    it('should switch to edit mode when the user chooses to edit', () => {
+      fixture.detectChanges();
+      page.clickOnEdit();
+      expect(page.investmentEditElement.hidden).toBeFalsy();
+      expect(page.investmentDisplayElement.hidden).toBeTruthy();
+    });
   });
 
   describe('new Investment', () => {
@@ -71,41 +56,21 @@ describe('InvestmentFormComponent', () => {
     });
   });
 
-  describe('display Investment', () => {
-    it('should switch to edit mode when the user chooses to edit', () => {
-      fixture.detectChanges();
-      const editElement: HTMLElement = page.investmentDisplayElement.querySelector('#edit');
-      editElement.click();
-      fixture.detectChanges();
-      expect(page.investmentEditElement.hidden).toBeFalsy();
-      expect(page.investmentDisplayElement.hidden).toBeTruthy();
-    });
-  });
-
   describe('in edit mode', () => {
-    it('should display the Amount formatted and disabled when a percentage investment', () => {
-      // Arrange / Act
+    beforeEach(() => {
       fixture.detectChanges();
-      const editElement: HTMLElement = page.investmentDisplayElement.querySelector('#edit');
-      editElement.click();
-      fixture.detectChanges();
+      page.clickOnEdit();
+    });
 
-      // Assert
+    it('should display the Amount formatted and disabled when a percentage investment', () => {
       const amountElement: HTMLInputElement = page.investmentEditElement.querySelector('#amount');
       fixture.whenStable().then(() => {
-        expect(amountElement.value).toContain('$8,700.00');
+        expect(amountElement.value).toContain('$6,369.36');
         expect(amountElement.disabled).toBeTruthy();
       });
     });
 
     it('should display the Percentage and enabled when a percentage investment', () => {
-      // Arrange / Act
-      fixture.detectChanges();
-      const editElement: HTMLElement = page.investmentDisplayElement.querySelector('#edit');
-      editElement.click();
-      fixture.detectChanges();
-
-      // Assert
       const percentageElement: HTMLInputElement = page.investmentEditElement.querySelector('#percentage');
       fixture.whenStable().then(() => {
         expect(percentageElement.value).toContain('0.06');
@@ -113,16 +78,8 @@ describe('InvestmentFormComponent', () => {
       });
     });
 
-    it('should exit edit mode when submitting', () => {
-      fixture.detectChanges();
-      const editElement: HTMLElement = page.investmentDisplayElement.querySelector('#edit');
-      editElement.click();
-      fixture.detectChanges();
-
-      const submitElement: HTMLButtonElement = page.investmentEditElement.querySelector('#submit');
-      submitElement.click();
-      fixture.detectChanges();
-
+    it('should exit edit mode after submitting', () => {
+      page.clickOnSubmit();
       expect(page.investmentEditElement.hidden).toBeTruthy();
       expect(page.investmentDisplayElement.hidden).toBeFalsy();
     });
@@ -130,19 +87,12 @@ describe('InvestmentFormComponent', () => {
     // TODO: edit mode when Fixed-Amount investment, recalculations
 
     // it('should recalculate the amount when submitting after changing the percentage', () => {
-    //   fixture.detectChanges();
-    //   const editElement: HTMLElement = page.investmentDisplayElement.querySelector('#edit');
-    //   editElement.click();
-    //   fixture.detectChanges();
-
     //   const percentageElement: HTMLInputElement = page.investmentEditElement.querySelector('#percentage');
     //   percentageElement.value = '.07';
     //   percentageElement.dispatchEvent(new Event('input')); // dispatch a DOM event so Angular learns of input value change
     //   fixture.detectChanges();
 
-    //   const submitElement: HTMLButtonElement = page.investmentEditElement.querySelector('#submit');
-    //   submitElement.click();
-    //   fixture.detectChanges();
+    //   page.clickOnSubmit();
 
     //   fixture.whenStable().then(() => {
     //     const amountElement: HTMLInputElement = page.investmentDisplayElement.querySelector('#amountDisplay');
