@@ -62,11 +62,11 @@ export class NewInvestment extends Investment {
 export class Summary {
     private _annualSalary = 0;
     desiredPercentage = .15;
-    investments: Investment[] = [
-        new Investment('401(k)', .06, 8700),
-        new Investment('Roth 401(k)', .04, 87)
-    ];
-
+    // investments: Investment[] = [
+    //     new Investment('401(k)', .06, 8700),
+    //     new Investment('Roth 401(k)', .04, 87)
+    // ];
+    investments: Investment[] = [];
     get annualSalary(): number {
         return this._annualSalary;
     }

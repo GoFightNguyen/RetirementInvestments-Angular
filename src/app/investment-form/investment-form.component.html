@@ -7,7 +7,7 @@
 
       <div class="form-group">
         <label>Investment Type</label>
-        <select name="investmentType" class="form-control" [(ngModel)]="model.investmentType">
+        <select id="selectInvestmentType" name="investmentType" class="form-control" [(ngModel)]="model.investmentType">
           <option *ngFor="let type of investmentTypes" [ngValue]="type">{{type}}</option>
         </select>
       </div>

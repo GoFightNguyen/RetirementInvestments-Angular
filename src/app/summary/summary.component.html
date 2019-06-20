@@ -3,7 +3,7 @@
 
     <div class="row">
       <label for="annualSalary">Annual Salary</label>
-      <input id="annualSalary"  type="number" [(ngModel)]="summary.annualSalary"/>
+      <input id="annualSalary" type="number" [(ngModel)]="summary.annualSalary" />
     </div>
     <br>
     <button id="addInvestment" class="btn btn-primary btn-sm" (click)="addInvestment()">Add investment</button>
@@ -16,15 +16,13 @@
     </div>
   </div>
   <div class="card-footer">
+    <div class="row">
+      <p><strong>{{summary.desiredPercentage | percent}}</strong> of your annual salary is
+        <strong>{{summary.desiredAmount | currency}}</strong></p>
+    </div>
     <span class="row">
-      <h5>{{summary.desiredPercentage | percent}}</h5>
-      &nbsp;of your annual salary is&nbsp;
-      <h5>{{summary.desiredAmount | currency}}</h5>
-    </span>
-    <span class="row">
-      <h5>{{summary.totalPercentageInvested | percent:'.2'}}</h5>
-      &nbsp;of your annual salary is invested, which is&nbsp;
-      <h5>{{summary.totalAmountInvested | currency}}</h5>
+      <p><strong>{{summary.totalPercentageInvested | percent:'.2'}}</strong> of your annual salary is invested, which is
+        <strong>{{summary.totalAmountInvested | currency}}</strong></p>
     </span>
   </div>
 </div>
