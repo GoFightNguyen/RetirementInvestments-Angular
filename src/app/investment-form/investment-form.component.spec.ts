@@ -5,6 +5,7 @@ import { NewInvestment } from '../models/investment';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { InvestmentPage } from './investment.po';
 import { TestHostComponent } from './test-host.component';
+import { InvestmentDisplayComponent } from '../investment/investment-display.component';
 
 describe('InvestmentFormComponent', () => {
   let component: TestHostComponent;
@@ -16,7 +17,8 @@ describe('InvestmentFormComponent', () => {
       imports: [FormsModule],
       declarations: [
         TestHostComponent,
-        InvestmentFormComponent
+        InvestmentFormComponent,
+        InvestmentDisplayComponent
       ],
       schemas: [NO_ERRORS_SCHEMA]
     });

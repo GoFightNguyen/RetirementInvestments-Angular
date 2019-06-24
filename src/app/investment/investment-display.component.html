@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <h5 class="col-11 text-left">{{model.name}}</h5>
+      <i id="edit" class="material-icons" style="cursor: pointer" (click)="onEdit()">edit</i>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div id="percentageDisplay" class="card-text col-4 text-left">{{model.percentage | percent:'.2'}}</div>
+      <div id="amountDisplay" class="card-text col-8 text-right">{{model.amount | currency}}</div>
+    </div>
+  </div>
+</div>

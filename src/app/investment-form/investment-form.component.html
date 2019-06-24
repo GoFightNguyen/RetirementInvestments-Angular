@@ -38,7 +38,8 @@
       <div class="form-group" *ngIf="!model.isContributionPercentageBased">
         <div class="form-group">
           <label for="percentage">Percentage</label>
-          <input id="percentage" class="form-control" name="percentage" disabled value="{{model.percentage | percent:'.2'}}">
+          <input id="percentage" class="form-control" name="percentage" disabled
+            value="{{model.percentage | percent:'.2'}}">
         </div>
 
         <div class="form-group">
@@ -51,20 +52,8 @@
   </div>
 </div>
 
-<div id="investmentDisplay" class="card" [hidden]="inEditMode">
-  <div class="card-header">
-    <div class="row">
-      <h5 class="col-11 text-left">{{model.name}}</h5>
-      <i id="edit" class="material-icons" style="cursor: pointer" (click)="inEditMode=true">edit</i>
-    </div>
-  </div>
-  <div class="card-body">
-    <div class="row">
-      <div id="percentageDisplay" class="card-text col-4 text-left">{{model.percentage | percent:'.2'}}</div>
-      <div id="amountDisplay" class="card-text col-8 text-right">{{model.amount | currency}}</div>
-    </div>
-  </div>
-</div>
+<app-investment-display id="investmentDisplay" [hidden]="inEditMode" [model]="model" (edit)="inEditMode=true">
+</app-investment-display>
 
 <!--TODO: percent pipe means we are storing the the value as .06 instead of 6. When editing, we need to show as 6-->
 <!--TODO: min/max validator are functions only, so can only work with Reactive Forms-->

@@ -4,7 +4,7 @@ import { TestHostComponent } from './test-host.component';
 export class InvestmentPage {
   private investmentFormElement: HTMLElement;
   get investmentEditElement() { return this.query<HTMLElement>('#investmentEdit'); }
-  get investmentDisplayElement(): HTMLElement { return this.investmentFormElement.querySelector('#investmentDisplay'); }
+  get investmentDisplayElement(): HTMLElement { return this.query<HTMLElement>('#investmentDisplay'); }
 
   constructor(private fixture: ComponentFixture<TestHostComponent>) {
     this.investmentFormElement = fixture.nativeElement.querySelector('app-investment-form');
