@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Investment, NewInvestment, InvestmentTypes } from '../investment';
+import { Investment, NewInvestment } from '../models/investment';
+import { InvestmentTypes } from '../models/investment-types';
 
 @Component({
   selector: 'app-investment-form',

@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SummaryComponent } from './summary.component';
 import { NO_ERRORS_SCHEMA, Component, Input } from '@angular/core';
-import { NewInvestment, Investment, Summary } from '../investment';
+import { NewInvestment, Investment } from '../models/investment';
+import { Summary } from '../models/summary';
 import { FormsModule } from '@angular/forms';
 import { SummaryPage } from './summary.po';
 

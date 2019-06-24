@@ -1,4 +1,4 @@
-import { MockSummary } from '../investment';
+import { MockSummary } from '../models/summary.mock';
 import { Component } from '@angular/core';
 @Component({
   template: `<app-investment-form [model]="investment" [annualSalary]="annualSalary"></app-investment-form>`

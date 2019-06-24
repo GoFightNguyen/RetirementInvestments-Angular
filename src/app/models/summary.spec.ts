@@ -1,4 +1,6 @@
-import { Summary, Investment, InvestmentTypes } from './investment';
+import { Investment } from './investment';
+import { Summary } from './summary';
+import { InvestmentTypes } from './investment-types';
 
 describe('Summary', () => {
     let summary: Summary;

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { InvestmentFormComponent } from './investment-form.component';
 import { FormsModule } from '@angular/forms';
-import { NewInvestment } from '../investment';
+import { NewInvestment } from '../models/investment';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { InvestmentPage } from './investment.po';
 import { TestHostComponent } from './test-host.component';

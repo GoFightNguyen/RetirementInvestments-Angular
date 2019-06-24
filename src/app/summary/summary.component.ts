@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NewInvestment, Summary } from '../investment';
+import { NewInvestment } from '../models/investment';
+import { Summary } from '../models/summary';
 
 @Component({
   selector: 'app-summary',
