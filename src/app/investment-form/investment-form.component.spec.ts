@@ -64,42 +64,26 @@ describe('InvestmentFormComponent', () => {
       page.clickOnEdit();
     });
 
-    it('should display the Amount formatted and disabled when a percentage investment', () => {
-      const amountElement: HTMLInputElement = page.investmentEditElement.querySelector('#amount');
-      fixture.whenStable().then(() => {
-        expect(amountElement.value).toContain('$6,369.36');
-        expect(amountElement.disabled).toBeTruthy();
-      });
-    });
+    // it('should display the Amount formatted and disabled when a percentage investment', () => {
+    //   const amountElement: HTMLInputElement = page.investmentEditElement.querySelector('#amount');
+    //   fixture.whenStable().then(() => {
+    //     expect(amountElement.value).toContain('$6,369.36');
+    //     expect(amountElement.disabled).toBeTruthy();
+    //   });
+    // });
 
-    it('should display the Percentage and enabled when a percentage investment', () => {
-      const percentageElement: HTMLInputElement = page.investmentEditElement.querySelector('#percentage');
-      fixture.whenStable().then(() => {
-        expect(percentageElement.value).toContain('0.06');
-        expect(percentageElement.disabled).toBeFalsy();
-      });
-    });
+    // it('should display the Percentage and enabled when a percentage investment', () => {
+    //   const percentageElement: HTMLInputElement = page.investmentEditElement.querySelector('#percentage');
+    //   fixture.whenStable().then(() => {
+    //     expect(percentageElement.value).toContain('0.06');
+    //     expect(percentageElement.disabled).toBeFalsy();
+    //   });
+    // });
 
     it('should exit edit mode after submitting', () => {
       page.clickOnSubmit();
       expect(page.investmentEditElement.hidden).toBeTruthy();
       expect(page.investmentDisplayElement.hidden).toBeFalsy();
     });
-
-    // TODO: edit mode when Fixed-Amount investment, recalculations
-
-    // it('should recalculate the amount when submitting after changing the percentage', () => {
-    //   const percentageElement: HTMLInputElement = page.investmentEditElement.querySelector('#percentage');
-    //   percentageElement.value = '.07';
-    //   percentageElement.dispatchEvent(new Event('input')); // dispatch a DOM event so Angular learns of input value change
-    //   fixture.detectChanges();
-
-    //   page.clickOnSubmit();
-
-    //   fixture.whenStable().then(() => {
-    //     const amountElement: HTMLInputElement = page.investmentDisplayElement.querySelector('#amountDisplay');
-    //     expect(amountElement.textContent).toContain('$7,430.92');
-    //   });
-    // });
   });
 });

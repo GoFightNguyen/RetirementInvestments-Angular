@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { InvestmentFormComponent } from './investment-form/investment-form.component';
 import { SummaryComponent } from './summary/summary.component';
 import { InvestmentDisplayComponent } from './investment/investment-display.component';
+import { InvestmentEditComponent } from './investment/investment-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InvestmentFormComponent,
     SummaryComponent,
-    InvestmentDisplayComponent
+    InvestmentDisplayComponent,
+    InvestmentEditComponent
   ],
   imports: [
     BrowserModule,
