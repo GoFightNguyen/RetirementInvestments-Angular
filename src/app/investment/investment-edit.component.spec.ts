@@ -33,7 +33,8 @@ describe('InvestmentEditComponent', () => {
 
   it('should have the investment types as an option', () => {
     component.model = new Investment('401(k)', .06, 6369.36);
-    fixture.detectChanges();
+    fixture.autoDetectChanges(true);
+    // fixture.detectChanges();
 
     const optionElements: HTMLElement[] = fixture.nativeElement
       .querySelector('#selectInvestmentType')
@@ -48,7 +49,8 @@ describe('InvestmentEditComponent', () => {
   describe('existing percentage investment', () => {
     beforeEach(() => {
       component.model = new Investment('401(k)', .06, 6369.36);
-      fixture.detectChanges();
+      // fixture.detectChanges();
+      fixture.autoDetectChanges(true);
     });
 
     it('should indicate it is a percentage investment', () => {
@@ -76,27 +78,20 @@ describe('InvestmentEditComponent', () => {
     });
 
     it('should switch input modes when changed to a fixed-amount investment', () => {
-      const investmentTypeElement: HTMLSelectElement = fixture.nativeElement.querySelector('#selectInvestmentType');
-      investmentTypeElement.click();
-      fixture.detectChanges();
-
       fixture.whenStable().then(() => {
-        investmentTypeElement.options[1].click();
-        fixture.detectChanges();
-        fixture.whenStable().then(() => {
+        const investmentTypeElement: HTMLSelectElement = fixture.nativeElement.querySelector('#selectInvestmentType');
+        investmentTypeElement.selectedIndex = 1;
+        investmentTypeElement.dispatchEvent(new Event('change'));
 
-        });
+        const percentageElement: HTMLInputElement = fixture.nativeElement.querySelector('#percentage');
+        expect(percentageElement.value).toBe('6.00%');
+        expect(percentageElement.disabled).toBeTruthy();
+
+        // TODO: why is this not updating?
+        const amountElement: HTMLInputElement = fixture.nativeElement.querySelector('#amount');
+        expect(amountElement.value).toBe('6369.36');
+        expect(amountElement.disabled).toBeFalsy();
       });
-      // fixture.detectChanges();
-      // fixture.detectChanges();
-      // // investmentTypeElement.selectedIndex = InvestmentTypes.all.indexOf(InvestmentTypes.FixedAmount);
-      // // fixture.detectChanges();
-      // fixture.whenStable().then(() => {
-
-      //   console.log(component.model.investmentType);
-      // });
-      // investmentTypeElement.selectedIndex = InvestmentTypes.all.indexOf(InvestmentTypes.FixedAmount);
-      // fixture.detectChanges();
     });
   });
 
